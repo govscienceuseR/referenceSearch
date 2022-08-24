@@ -4,3 +4,8 @@
 .Rproj.user
 citationSearch.Rproj
 .Rbuildignore
+
+
+scratch/*
+data/scratch
+data/scratch/*
