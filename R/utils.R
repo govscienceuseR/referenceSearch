@@ -65,7 +65,9 @@ empty_string = function(x) {
 }
 
 #' change author format from anystyle output to simple set
+#' 
 #' Anystyle makes json-style outputs that split out first/middle/surname for each author
+#' 
 #' @param x author string set that follows anystyle format
 #' @return string
 list_authors = function(x) {

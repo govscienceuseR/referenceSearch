@@ -2,8 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{list_authors}
 \alias{list_authors}
-\title{change author format from anystyle output to simple set
-Anystyle makes json-style outputs that split out first/middle/surname for each author}
+\title{change author format from anystyle output to simple set}
 \usage{
 list_authors(x)
 }
@@ -14,6 +13,5 @@ list_authors(x)
 string
 }
 \description{
-change author format from anystyle output to simple set
 Anystyle makes json-style outputs that split out first/middle/surname for each author
 }
