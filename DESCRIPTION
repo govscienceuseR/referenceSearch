@@ -1,6 +1,6 @@
 Package: citationSearch
 Title: Search Citations Against Paper Metadata
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     c( 
     person(given = "Arthur",
