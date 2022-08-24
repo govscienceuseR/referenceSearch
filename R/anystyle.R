@@ -54,3 +54,17 @@ parse_anystyle = function(anystyle_df) {
     a[a == "NULL"] = NA
     return (a)
 }
+
+#' change author format from anystyle output to simple set
+#' 
+#' Anystyle makes json-style outputs that split out first/middle/surname for each author
+#' 
+#' @param x author string set that follows anystyle format
+#' @return string
+#' @export
+list_authors = function(x) {
+  name_extracts <- str_extract_all(x,'Person[^\\)]+')[[1]]
+  split_sets <- str_extract_all(name_extracts,"'.*?'")
+  name_set <- sapply(split_sets,function(x) str_remove_all(paste0(x[3],", ",x[1]," ",x[2]),"'"))
+  paste(name_set,collapse = '; ')
+}
