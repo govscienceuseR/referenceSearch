@@ -2,6 +2,7 @@
 #'
 #'
 #' @param records a dataframe to be indexed
+#' @param overwrite a boolean for whether the index should be overwritten if something with same name already exists
 #' @description The collection passed in must have the following specified columns:
 #' Title, Authors, Year, Publisher", Source, Misc, Journal Title, DOI
 #' @export 
@@ -18,7 +19,7 @@ index_records = function (records,
     conn = solrium::SolrClient$new()
 
     if (solrium::collection_exists(conn, collection_name)){
-	warning("\"", collection_name, "\"", " collection already exits, not
+	warning("\"", collection_name, "\"", " collection already exists, not
 		overwriting\n")
 		return (-1)
     }
