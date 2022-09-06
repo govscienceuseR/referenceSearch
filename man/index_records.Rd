@@ -4,10 +4,16 @@
 \alias{index_records}
 \title{Create collection for index}
 \usage{
-index_records(records, collection_name = paste0(substitute(records)))
+index_records(
+  records,
+  overwrite = F,
+  collection_name = paste0(substitute(records))
+)
 }
 \arguments{
 \item{records}{a dataframe to be indexed}
+
+\item{overwrite}{a boolean for whether the index should be overwritten if something with same name already exists}
 }
 \description{
 The collection passed in must have the following specified columns:

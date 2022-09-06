@@ -7,7 +7,7 @@
 #' Title, Authors, Year, Publisher", Source, Misc, Journal Title, DOI
 #' @export 
 #' @importFrom solrium SolrClient collection_exists collection_create
-index_records = function (records, 
+index_records = function (records, overwrite = F,
 			  collection_name=paste0(substitute(records))){
 
     valid = validate_columns(colnames(records), c("title", "authors", "year",
@@ -18,7 +18,7 @@ index_records = function (records,
     }
     conn = solrium::SolrClient$new()
 
-    if (solrium::collection_exists(conn, collection_name)){
+    if (solrium::collection_exists(conn, collection_name)&!overwrite){
 	warning("\"", collection_name, "\"", " collection already exists, not
 		overwriting\n")
 		return (-1)
