@@ -29,8 +29,8 @@ devtools::install()
 # Overview
 
 This package expects the user to provide two datasets:
-1. a dataframe of record metadata 
-2. a dataframe of citations  
+1. a dataframe of the references you have found in documents
+2. a dataframe of ground-truth references you want to match against.
 
 ## 1. Record metadata
 
@@ -108,4 +108,5 @@ To reinstall the package: `devtools::install()`
 # Contact
 
 Arthur Koehl avkoehl at ucdavis dot edu
+Tyler Scott tscott1 at ucdavis dot edu
 
