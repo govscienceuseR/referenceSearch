@@ -108,5 +108,6 @@ To reinstall the package: `devtools::install()`
 # Contact
 
 Arthur Koehl avkoehl at ucdavis dot edu
+
 Tyler Scott tscott1 at ucdavis dot edu
 
