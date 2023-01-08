@@ -1,5 +1,5 @@
-Package: citationSearch
-Title: Search Citations Against Paper Metadata
+Package: referenceSearch
+Title: Search References Against Paper Metadata
 Version: 1.0.1
 Authors@R: 
     c( 
