@@ -25,8 +25,10 @@ index_records = function (records, overwrite = F,
 		  return (-1)
     }
     if (solrium::collection_exists(conn, collection_name)&overwrite){
+      message("collection ", "\"", collection_name, "\"", " already exists, deleting")
       solrium::collection_delete(conn = conn, name = collection_name)
     }
+    message('creating new collection ', "\"", collection_name, "\"")
     collection_create(conn, name = collection_name , numShards = 1)
     conn$add(records, collection_name)
 }
