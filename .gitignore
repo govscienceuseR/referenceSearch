@@ -5,7 +5,7 @@
 citationSearch.Rproj
 .Rbuildignore
 
-
+scratch
 scratch/*
 data/scratch
 data/scratch/*

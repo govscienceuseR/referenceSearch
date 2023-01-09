@@ -7,7 +7,7 @@ searching citations against record metadata that is not contained in common
 citation indexes, e.g government grey literature.
 
 To be used in the main project repo: 
-https://github.com/datalab-dev/tyler_scott/
+https://github.com/govscienceuseR
 
 # Setup
 

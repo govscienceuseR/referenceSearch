@@ -14,6 +14,8 @@ index_records(
 \item{records}{a dataframe to be indexed}
 
 \item{overwrite}{a boolean for whether the index should be overwritten if something with same name already exists}
+
+\item{collection_name}{name of the collection, defaults to same base name of the data.frame being indexed (records)}
 }
 \description{
 The collection passed in must have the following specified columns:

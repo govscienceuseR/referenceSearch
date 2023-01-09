@@ -7,7 +7,7 @@
 parse_anystyle(anystyle_df)
 }
 \arguments{
-\item{anystyle_entry}{dataframe}
+\item{anystyle_df}{dataframe of anystyle.io output}
 }
 \value{
 dataframe

@@ -16,7 +16,7 @@ Authors@R:
            role = c("ctb"))
 	   )
 Description: 
-    citationSearch is an R package that provides an interface for creating a
+    referenceSearch is an R package that provides an interface for creating a
     searchable Solr index from a dataframe of records, as well as searching against
     that index with a dataframe of parsed citations. It was designed to allow
     searching citations against record metadata that is not contained in common
@@ -26,7 +26,7 @@ License: `use_mit_license()`, `use_gpl3_license()` or friends to
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Imports: 
     anytime,
     magrittr,

@@ -32,7 +32,7 @@ normalize_years = function(years) {
 
 #' Convert anystyle data to the input format expected for searches
 #'
-#' @param anystyle_entry dataframe
+#' @param anystyle_df dataframe of anystyle.io output
 #' @return dataframe
 #' @export 
 parse_anystyle = function(anystyle_df) {
@@ -61,6 +61,7 @@ parse_anystyle = function(anystyle_df) {
 #' 
 #' @param x author string set that follows anystyle format
 #' @return string
+#' @importFrom stringr str_extract_all str_remove_all
 #' @export
 list_authors = function(x) {
   name_extracts <- str_extract_all(x,'Person[^\\)]+')[[1]]

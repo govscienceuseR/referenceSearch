@@ -3,6 +3,7 @@
 #'
 #' @param records a dataframe to be indexed
 #' @param overwrite a boolean for whether the index should be overwritten if something with same name already exists
+#' @param collection_name name of the collection, defaults to same base name of the data.frame being indexed (records)
 #' @description The collection passed in must have the following specified columns:
 #' Title, Authors, Year, Publisher", Source, Misc, Journal Title, DOI
 #' @export 
@@ -19,9 +20,11 @@ index_records = function (records, overwrite = F,
     conn = solrium::SolrClient$new()
 
     if (solrium::collection_exists(conn, collection_name)&!overwrite){
-	warning("\"", collection_name, "\"", " collection already exists, not
-		overwriting\n")
-		return (-1)
+	    warning("\"", collection_name, "\"", " collection already exists, not overwriting\n")
+		  return (-1)
+    }
+    if (solrium::collection_exists(conn, collection_name)&overwrite){
+      solrium::collection_delete(conn = conn, name = collection_name)
     }
     collection_create(conn, name = collection_name , numShards = 1)
     conn$add(records, collection_name)

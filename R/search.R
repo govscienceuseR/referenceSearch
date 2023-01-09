@@ -9,6 +9,7 @@
 #' @param conn optional SolrClient object
 #' @return dataframe of top 5 results
 #' @importFrom solrium SolrClient solr_search
+#' @importFrom stringr str_trim str_split
 #' @export
 search_collection = function(query_string, collection_name, topn=1,conn=NULL) {
     if (is.null(conn)) {
@@ -70,7 +71,7 @@ create_queries = function(citations) {
     # paste together
     citations[is.na(citations)] = ""
     combined = apply(citations[], 1, paste, collapse=" ") 
-    combined = stringr::str_trim(combined)
+    combined = str_trim(combined)
 }
 
 add_field = function(col, name) {
@@ -87,7 +88,7 @@ add_phrase = function(str, name) {
 }
 
 add_field_to_string = function(string, fieldname) {
-    elem = stringr::str_split(string, " ")[[1]]
+    elem = str_split(string, " ")[[1]]
     elem = purrr::discard(elem, empty_string)
 
     res = ""
