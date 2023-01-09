@@ -8,6 +8,7 @@
 #' Title, Authors, Year, Publisher", Source, Misc, Journal Title, DOI
 #' @export 
 #' @importFrom solrium SolrClient collection_exists collection_create
+
 index_records = function (records, overwrite = F,
 			  collection_name=paste0(substitute(records))){
 
