@@ -4,10 +4,14 @@
 \alias{create_queries}
 \title{Convert dataframe of citations into search queries}
 \usage{
-create_queries(citations)
+create_queries(citations, boost_values = NULL, boost_fields = NULL)
 }
 \arguments{
 \item{citations}{dataframe of citations}
+
+\item{boost_values}{optional boost factors. Value is weight relative to other fields (e.g., ^2 is twice the weight) (see https://solr.apache.org/guide/7_3/the-standard-query-parser.html#boosting-a-term-with)}
+
+\item{boost_fields}{optional fields to boost weights}
 }
 \value{
 search queries

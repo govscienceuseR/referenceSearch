@@ -19,5 +19,5 @@ index_records(
 }
 \description{
 The collection passed in must have the following specified columns:
-Title, Authors, Year, Publisher", Source, Misc, Journal Title, DOI
+Title, Authors, Year, Publisher, Source, Miscid, Journal Title, DOI
 }

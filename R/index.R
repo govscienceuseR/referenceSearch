@@ -5,7 +5,7 @@
 #' @param overwrite a boolean for whether the index should be overwritten if something with same name already exists
 #' @param collection_name name of the collection, defaults to same base name of the data.frame being indexed (records)
 #' @description The collection passed in must have the following specified columns:
-#' Title, Authors, Year, Publisher", Source, Misc, Journal Title, DOI
+#' Title, Authors, Year, Publisher, Source, Miscid, Journal Title, DOI
 #' @export 
 #' @importFrom solrium SolrClient collection_exists collection_create
 

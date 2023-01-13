@@ -8,11 +8,13 @@
 #' @param topn optional number or results to return
 #' @param conn optional SolrClient object
 #' @return dataframe of top 5 results
+#' 
+
 #' @importFrom solrium SolrClient solr_search
 #' @importFrom stringr str_trim str_split
 #' @export
 search_collection = function(query_string, collection_name, topn=1,conn=NULL) {
-    if (is.null(conn)) {
+  if (is.null(conn)) {
 	conn = solrium::SolrClient$new()
     }
 
@@ -33,16 +35,21 @@ search_collection = function(query_string, collection_name, topn=1,conn=NULL) {
 #' Convert dataframe of citations into search queries
 #'
 #' @param citations dataframe of citations
+#' @param boost_fields optional fields to boost weights
+#' @param boost_values optional boost factors. Value is weight relative to other fields (e.g., ^2 is twice the weight) (see https://solr.apache.org/guide/7_3/the-standard-query-parser.html#boosting-a-term-with)
+
 #' @return search queries
 #' @export
-create_queries = function(citations) {
+create_queries = function(citations,boost_values = NULL,boost_fields = NULL) {
 
     # check input data
     valid = validate_columns(colnames(citations),
 		     expected=c("title", "authors", "year", "publisher", 
 				"doi", "journal_title"))
     if(!valid) { stop("columns don't match expected") }	
-
+    if(length(boost_fields)!=length(boost_values)|(length(boost_fields)>1&length(boost_values)==1)){stop("must specify a single boost value or 1 boost value for every field to boost")}
+    if(!all(boost_fields %in% c("title", "authors", "year", "publisher", 
+                                        "doi", "journal_title"))){stop("boost column doesn't match expected")}
     # for each string field:
     # normalize string
     sfn = c("title", "authors", "publisher", "doi", "journal_title")
@@ -60,14 +67,20 @@ create_queries = function(citations) {
 			     USE.NAMES = FALSE)
     citations$title[citations$title == ""] = NA
 
+    # for journal_title, add phrase
+    citations$journal_title = sapply(citations$journal_title, add_phrase, "journal_title", 
+                             USE.NAMES = FALSE)
+    citations$journal_title[citations$journal_title == ""] = NA
+    
     # for rest add field identifiers
-    fn = c("authors", "year", "publisher", "doi", "journal_title")
+    fn = c("authors", "year", "publisher", "doi")
     citations$authors = add_field(citations$authors, "authors")
     citations$year = add_field(citations$year, "year")
     citations$publisher = add_field(citations$publisher, "publisher")
     citations$doi = add_field(citations$doi, "doi")
-    citations$journal_title = add_field(citations$journal_title, "journal_title")
+    #citations$journal_title = add_field(citations$journal_title, "journal_title")
 
+    
     # paste together
     citations[is.na(citations)] = ""
     combined = apply(citations[], 1, paste, collapse=" ") 
@@ -81,10 +94,10 @@ add_field = function(col, name) {
 }
 
 add_phrase = function(str, name) {
-    if(empty_string(str)) {
-	return ("")
-    }
-    paste0('"', name, ":", str, '"')
+  if(empty_string(str)) {
+    return ("")
+  }
+  paste0(name, ':"', str, '"')
 }
 
 add_field_to_string = function(string, fieldname) {
