@@ -47,7 +47,7 @@ create_queries = function(citations,boost_values = NULL,boost_fields = NULL,trea
 		     expected=c("title", "authors", "year", "publisher", 
 				"doi", "journal_title"))
     if(!valid) { stop("columns don't match expected") }	
-    if(!any(treat_as_phrase) %in% c('journal_title','title')){stop(paste0("treating ", paste(treat_as_phrase[!treat_as_phrase %in% c('journal_title','title')],collapse = ',')," as phrase not currently supported"))}
+    if(!is.null(treat_as_phrase) & !(all(treat_as_phrase %in% c('journal_title','title')))){stop(paste0("treating ", paste(treat_as_phrase[!treat_as_phrase %in% c('journal_title','title')],collapse = ',')," as phrase not currently supported"))}
     if(length(boost_fields)!=length(boost_values)|(length(boost_fields)>1&length(boost_values)==1)){stop("must specify a single boost value or 1 boost value for every field to boost")}
     if(!all(boost_fields %in% c("title", "authors", "year", "publisher", 
                                         "doi", "journal_title"))){stop("boost column doesn't match expected")}
