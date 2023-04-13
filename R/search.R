@@ -26,7 +26,7 @@ search_collection = function(query_string, collection_name, topn=1,conn=NULL) {
 						 fl = c("title", "authors", 
 							"publisher", "year", 
 							"doi", "source",
-							"journal_title",
+							"journal_title",'miscid',
 							"score"),
 						 rows = topn)
     )
