@@ -25,7 +25,7 @@ check_doi = function(x) {
 #' 
 #' @param cols char colnames to check
 #' @param expected char names to check against
-#' @param return bool
+#' @return bool
 #' @export
 validate_columns = function (cols, expected) {
     ms = setdiff(expected, tolower(cols))

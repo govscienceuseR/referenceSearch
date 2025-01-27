@@ -10,8 +10,9 @@ validate_columns(cols, expected)
 \item{cols}{char colnames to check}
 
 \item{expected}{char names to check against}
-
-\item{return}{bool}
+}
+\value{
+bool
 }
 \description{
 Check to see if user has the number of matching columns specified

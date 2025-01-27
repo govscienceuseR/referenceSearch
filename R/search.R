@@ -13,7 +13,7 @@
 #' @importFrom solrium SolrClient solr_search
 #' @importFrom stringr str_trim str_split
 #' @export
-search_collection = function(query_string, collection_name, topn=1,conn=NULL) {
+search_collection = function(query_string, collection_name, topn=1,conn=NULL,slop=NULL) {
   if (is.null(conn)) {
 	conn = solrium::SolrClient$new()
     }
@@ -23,6 +23,7 @@ search_collection = function(query_string, collection_name, topn=1,conn=NULL) {
 				   name= collection_name,
 				   params = list(
 						 q = query_string,
+						 qs = slop,
 						 fl = c("title", "authors", 
 							"publisher", "year", 
 							"doi", "source",
@@ -67,25 +68,28 @@ create_queries = function(citations,boost_values = NULL,boost_fields = NULL,trea
     if('title' %in% treat_as_phrase){
       # for title, add phrase
       citations$title = sapply(citations$title, add_phrase, "title", 
-                                       USE.NAMES = FALSE)
+                                       USE.NAMES = FALSE, boost = if('title' %in% boost_fields) boost_values[boost_fields == 'title'] else NULL)
       citations$title[citations$title == ""] = NA
-    }else{
-      citations$title = add_field(citations$title, "title")
+    } else{
+      citations$title = add_field(citations$title, "title", boost = if('title' %in% boost_fields) boost_values[boost_fields == 'title'] else NULL)
     }
+
+
+
     if('journal_title' %in% treat_as_phrase){
     # for journal_title, add phrase
     citations$journal_title = sapply(citations$journal_title, add_phrase, "journal_title", 
-                             USE.NAMES = FALSE)
+                             USE.NAMES = FALSE, boost = if('journal_title' %in% boost_fields) boost_values[boost_fields == 'journal_title'] else NULL)
     citations$journal_title[citations$journal_title == ""] = NA
     }else{
-      citations$journal_title = add_field(citations$journal_title, "journal_title")
+      citations$journal_title = add_field(citations$journal_title, "journal_title", boost = if('journal_title' %in% boost_fields) boost_values[boost_fields == 'journal_title'] else NULL)
     }
     # for rest add field identifiers
     fn = c("authors", "year", "publisher", "doi")
-    citations$authors = add_field(citations$authors, "authors")
-    citations$year = add_field(citations$year, "year")
-    citations$publisher = add_field(citations$publisher, "publisher")
-    citations$doi = add_field(citations$doi, "doi")
+    citations$authors = add_field(citations$authors, "authors", boost = if('authors' %in% boost_fields) boost_values[boost_fields == 'authors'] else NULL)
+    citations$year = add_field(citations$year, "year", boost = if('year' %in% boost_fields) boost_values[boost_fields == 'year'] else NULL)
+    citations$publisher = add_field(citations$publisher, "publisher", boost = if('publisher' %in% boost_fields) boost_values[boost_fields == 'publisher'] else NULL)
+    citations$doi = add_field(citations$doi, "doi", boost = if('doi' %in% boost_fields) boost_values[boost_fields == 'doi'] else NULL)
     #citations$journal_title = add_field(citations$journal_title, "journal_title")
 
     
@@ -95,17 +99,29 @@ create_queries = function(citations,boost_values = NULL,boost_fields = NULL,trea
     combined = str_trim(combined)
 }
 
-add_field = function(col, name) {
-    res = sapply(col, add_field_to_string, name, USE.NAMES=FALSE)
+add_field = function(col, name, boost = NULL) {
+    res = sapply(col, function(x) {
+        base = add_field_to_string(x, name)
+        if (!is.null(boost) && base != "") {
+            # Split into individual terms and add boost to each
+            terms = str_split(base, " ")[[1]]
+            base = paste(paste0(terms, "^", boost), collapse=" ")
+        }
+        base
+    }, USE.NAMES=FALSE)
     res[res == ""] = NA
     res
 }
 
-add_phrase = function(str, name) {
+add_phrase = function(str, name, boost = NULL) {
   if(empty_string(str)) {
     return ("")
   }
-  paste0(name, ':"', str, '"')
+  if(!is.null(boost)) {
+    return(paste0(name, ':"', str, '"^', boost))
+  } else {
+    return(paste0(name, ':"', str, '"'))
+  }
 }
 
 add_field_to_string = function(string, fieldname) {

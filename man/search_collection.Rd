@@ -4,7 +4,13 @@
 \alias{search_collection}
 \title{Given search query, get top matches}
 \usage{
-search_collection(query_string, collection_name, topn = 1, conn = NULL)
+search_collection(
+  query_string,
+  collection_name,
+  topn = 1,
+  conn = NULL,
+  slop = NULL
+)
 }
 \arguments{
 \item{query_string}{created with construct_query function}

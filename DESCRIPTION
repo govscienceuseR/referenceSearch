@@ -5,14 +5,17 @@ Authors@R:
     c( 
     person(given = "Arthur",
            family = "Koehl",
-           role = c("aut", "cre"),
-           email = "avkoehl@ucdavis.edu",
-           comment = c(ORCID = "https://orcid.org/0000-0003-0476-2144")),
+           role = c("aut"),
+           email = "avkoehl@ucdavis.edu"),
     person(given = "Tyler",
            family = "Scott",
-           role = c("ctb")),
+           role = c("aut", "cre"),
+           email = "tascott@ucdavis.edu"),
     person(given = "Bi",
            family = "Nguyen",
+           role = c("ctb")),
+    person(given = "Liza",
+           family = "Wood",
            role = c("ctb"))
 	   )
 Description: 
@@ -21,22 +24,20 @@ Description:
     that index with a dataframe of parsed citations. It was designed to allow
     searching citations against record metadata that is not contained in common
     citation indexes, e.g government grey literature.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Imports: 
-    anytime,
-    magrittr,
-    purrr,
-    solrium,
-    stringr,
-    tibble
+    anytime (>= 0.3.9),
+    magrittr (>= 2.0.3),
+    purrr (>= 1.0.1),
+    solrium (>= 1.2.0),
+    stringr (>= 1.5.0)
 Suggests: 
-    rmarkdown,
-    knitr
+    rmarkdown (>= 2.21),
+    knitr (>= 1.42)
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
